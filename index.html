@@ -16,6 +16,7 @@
       --accent:#ffffff;
       --accentText:#0A0C14;
       --soft:rgba(255,255,255,0.10);
+      --ok:rgba(255,255,255,0.12);
     }
 
     *{box-sizing:border-box;}
@@ -40,7 +41,7 @@
         radial-gradient(circle at 20% 30%, rgba(255,255,255,0.07), transparent 45%),
         radial-gradient(circle at 80% 40%, rgba(255,255,255,0.06), transparent 50%),
         radial-gradient(circle at 50% 80%, rgba(255,255,255,0.05), transparent 55%);
-      filter: blur(20px);
+      filter: blur(22px);
       animation: drift 10s ease-in-out infinite;
       pointer-events:none;
       z-index:0;
@@ -49,6 +50,22 @@
       0%{ transform: translate(0,0) scale(1); }
       50%{ transform: translate(2%, -2%) scale(1.03); }
       100%{ transform: translate(0,0) scale(1); }
+    }
+
+    /* floating stars */
+    .star{
+      position:fixed;
+      width:7px;height:7px;
+      border-radius:50%;
+      background: rgba(255,255,255,0.22);
+      filter: blur(0.2px);
+      animation: floatUp linear infinite;
+      pointer-events:none;
+      z-index:1;
+    }
+    @keyframes floatUp{
+      from{ transform: translateY(110vh) translateX(0) scale(0.9); opacity:0.15; }
+      to{ transform: translateY(-15vh) translateX(70px) scale(1.2); opacity:0.35; }
     }
 
     .wrap{
@@ -62,7 +79,7 @@
     }
 
     .card{
-      width:min(820px, 96vw);
+      width:min(860px, 96vw);
       background:var(--glass);
       border:1px solid var(--stroke);
       border-radius:26px;
@@ -120,7 +137,7 @@
       padding:18px;
       border:1px solid rgba(255,255,255,0.10);
       background: rgba(0,0,0,0.22);
-      min-height:260px;
+      min-height:280px;
       position:relative;
       overflow:hidden;
     }
@@ -132,9 +149,7 @@
       margin:0;
     }
 
-    .fadeIn{
-      animation: fadeIn 0.55s ease forwards;
-    }
+    .fadeIn{ animation: fadeIn 0.55s ease forwards; }
     @keyframes fadeIn{
       from{ opacity:0; transform: translateY(10px); }
       to{ opacity:1; transform: translateY(0); }
@@ -171,6 +186,50 @@
       border:1px solid rgba(255,255,255,0.14);
     }
 
+    .mini{
+      margin-top:16px;
+      display:none;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .box{
+      width:min(720px, 100%);
+      margin:14px auto 0 auto;
+      border-radius:20px;
+      padding:14px;
+      background: rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.10);
+      display:none;
+    }
+
+    .box h3{
+      margin:0 0 10px 0;
+      font-size:15px;
+      color:rgba(255,255,255,0.92);
+    }
+
+    .promises{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+
+    .promise{
+      border-radius:16px;
+      padding:12px;
+      border:1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.18);
+      color:rgba(255,255,255,0.86);
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .promise b{
+      color:rgba(255,255,255,0.95);
+    }
+
     .footer{
       margin-top:14px;
       text-align:center;
@@ -178,7 +237,7 @@
       color:rgba(255,255,255,0.55);
     }
 
-    /* small sparkle */
+    /* sparkle */
     .sparkle{
       position:fixed;
       font-size:16px;
@@ -192,6 +251,18 @@
       20%{ opacity:1; }
       100%{ transform: translateY(-80px) scale(1.2); opacity:0; }
     }
+
+    .tiny{
+      font-size:12px;
+      color:rgba(255,255,255,0.60);
+      text-align:center;
+      margin-top:10px;
+    }
+
+    a{
+      color:rgba(255,255,255,0.92);
+      text-decoration:none;
+    }
   </style>
 </head>
 
@@ -202,12 +273,12 @@
     <div class="card">
       <div class="top">
         <div class="chip"><span class="dot"></span> A small, honest request</div>
-        <div class="chip">🤍 Respect > Ego</div>
+        <div class="chip">🤍 Comfort > Everything</div>
       </div>
 
       <h1>Madam ji… can I say something? 😅</h1>
       <p class="sub">
-        This is not drama. Not pressure. Just a clean and respectful message.
+        No pressure. No drama. Just a clean message — respectfully.
       </p>
 
       <div class="screen">
@@ -215,8 +286,55 @@
 
         <div class="btnRow" id="btnRow" style="display:none;">
           <button class="primary" id="btnYes">Yes, we can 🤍</button>
-          <button class="secondary" id="btnTalk">Let’s keep it simple 🙂</button>
+          <button class="secondary" id="btnSimple">Let’s keep it simple 🙂</button>
+          <button class="secondary" id="btnTime">I need some time ⏳</button>
         </div>
+
+        <!-- Promise Card -->
+        <div class="box" id="promiseBox">
+          <h3>My promises (without any show-off):</h3>
+          <div class="promises">
+            <div class="promise">✅ <b>No pressure:</b> I won’t force anything or expect replies.</div>
+            <div class="promise">✅ <b>No disturbance:</b> I’ll keep things calm and respectful.</div>
+            <div class="promise">✅ <b>Respect always:</b> Your comfort comes first — always.</div>
+          </div>
+          <div class="tiny">You don’t have to say anything right now 🙂</div>
+        </div>
+
+        <!-- Mini Questions -->
+        <div class="box" id="questionBox">
+          <h3>Just one small question:</h3>
+          <div class="promises">
+            <div class="promise">🙂 Which vibe do you prefer with me?</div>
+          </div>
+
+          <div class="mini" id="miniBtns">
+            <button class="secondary" id="vibe1">Simple 🙂</button>
+            <button class="secondary" id="vibe2">Friendly 🤝</button>
+            <button class="secondary" id="vibe3">Distance but respect 🤍</button>
+          </div>
+
+          <div class="tiny" id="vibeResult" style="display:none;"></div>
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="box" id="waBox">
+          <h3>If you want…</h3>
+          <div class="promises">
+            <div class="promise">
+              📩 You can reply later.  
+              Or just leave it — I’ll still respect you.
+            </div>
+          </div>
+
+          <div class="btnRow" style="margin-top:12px;">
+            <button class="primary" id="btnWA">Send a reply on WhatsApp</button>
+          </div>
+          <div class="tiny">
+            (This button will open WhatsApp with a pre-written message.)
+          </div>
+        </div>
+
       </div>
 
       <div class="footer">— made with sincerity ✨</div>
@@ -224,12 +342,42 @@
   </div>
 
   <script>
+    // Stars
+    function spawnStars(){
+      for(let i=0;i<16;i++){
+        const s=document.createElement("div");
+        s.className="star";
+        const size= 4 + Math.random()*8;
+        s.style.width=size+"px";
+        s.style.height=size+"px";
+        s.style.left=(Math.random()*100)+"vw";
+        s.style.animationDuration=(8+Math.random()*10)+"s";
+        s.style.animationDelay=(Math.random()*4)+"s";
+        document.body.appendChild(s);
+      }
+    }
+    spawnStars();
+
     const msg = document.getElementById("msg");
     const btnRow = document.getElementById("btnRow");
-    const btnYes = document.getElementById("btnYes");
-    const btnTalk = document.getElementById("btnTalk");
 
-    const text1 =
+    const btnYes = document.getElementById("btnYes");
+    const btnSimple = document.getElementById("btnSimple");
+    const btnTime = document.getElementById("btnTime");
+
+    const promiseBox = document.getElementById("promiseBox");
+    const questionBox = document.getElementById("questionBox");
+    const miniBtns = document.getElementById("miniBtns");
+    const vibeResult = document.getElementById("vibeResult");
+    const waBox = document.getElementById("waBox");
+
+    const vibe1 = document.getElementById("vibe1");
+    const vibe2 = document.getElementById("vibe2");
+    const vibe3 = document.getElementById("vibe3");
+
+    const btnWA = document.getElementById("btnWA");
+
+    const intro =
 `Sorry madam ji… 🤍
 
 Main bas ek simple si baat bolna chahta hoon:
@@ -238,12 +386,13 @@ Main aapko respect karta hoon.
 Aur mujhe wahi purani wali bonding wapas chahiye —
 senior-junior wali… simple, real, aur peaceful 🙂
 
-Main aapko disturb nahi karna chahta,
-bas aapke saath achche se behave karna chahta hoon.
+Agar meri kisi baat se aap uncomfortable hui ho,
+I’m genuinely sorry.
 
-Agar aap allow kar do… toh main khush rahunga.`;
+Aap jo bhi choose karogi,
+main usko respect karunga.`;
 
-    const textYes =
+    const yesText =
 `Thank you… 🤍
 
 Aapne “Yes” choose kiya,
@@ -252,39 +401,57 @@ aur honestly… ye mere liye kaafi hai.
 Main aapko kabhi force nahi karunga.
 Bas respect, care, aur wahi purani bonding.
 
-🙂✨
-(Ab aap is link ko close kar sakti ho.)`;
+🙂✨`;
 
-    const textTalk =
+    const simpleText =
 `Bilkul… 🙂🤍
 
-Aapne “simple” choose kiya,
-aur mujhe wahi chahiye tha.
+Aapne “simple” choose kiya.
+Aur mujhe wahi chahiye tha.
 
 Main bas ek achcha senior banna chahta hoon,
 jo aapko comfortable feel karaye.
 
-Aap jab chahe… normal baat kar lena.
-No pressure.`;
+No pressure. No expectations.`;
 
-    function typeText(text, speed=18){
+    const timeText =
+`Of course… ⏳🤍
+
+Aapne “time” choose kiya,
+and that’s completely okay.
+
+Main wait kar lunga.
+Aur aap jab ready ho,
+tab normal ho jayega.
+
+Take your time 🙂`;
+
+    function typeText(text, speed=16){
       msg.textContent = "";
       btnRow.style.display = "none";
-      let i=0;
+      promiseBox.style.display = "none";
+      questionBox.style.display = "none";
+      waBox.style.display = "none";
+      miniBtns.style.display = "none";
+      vibeResult.style.display = "none";
 
-      const timer = setInterval(()=>{
+      let i=0;
+      const timer=setInterval(()=>{
         msg.textContent += text[i];
         i++;
-        if(i >= text.length){
+        if(i>=text.length){
           clearInterval(timer);
-          setTimeout(()=> btnRow.style.display = "flex", 350);
+          setTimeout(()=>{
+            btnRow.style.display = "flex";
+          }, 350);
         }
       }, speed);
     }
 
     // start
-    typeText(text1, 16);
+    typeText(intro);
 
+    // sparkle
     function sparkle(x,y){
       const icons = ["✨","🤍","💫","🙂","🌙"];
       const s = document.createElement("div");
@@ -296,18 +463,61 @@ No pressure.`;
       setTimeout(()=>s.remove(), 1100);
     }
 
-    btnYes.addEventListener("click", (e)=>{
-      sparkle(e.clientX, e.clientY);
-      typeText(textYes, 15);
-      btnYes.textContent = "Thank you 🤍";
-      btnTalk.style.display = "none";
+    function showExtras(){
+      promiseBox.style.display = "block";
+      questionBox.style.display = "block";
+      waBox.style.display = "block";
+      miniBtns.style.display = "flex";
+      promiseBox.classList.add("fadeIn");
+      questionBox.classList.add("fadeIn");
+      waBox.classList.add("fadeIn");
+    }
+
+    // WhatsApp message
+    const waMessage = encodeURIComponent(
+      "Madam ji 🙂🤍\n\nI read your message.\nThank you for being clear.\n\nI respect your comfort.\nWe can keep it simple — senior-junior bonding.\n\n(Reply whenever you feel okay.)"
+    );
+
+    // NOTE: You must replace the number with her WhatsApp number (with country code).
+    // Example India: 91XXXXXXXXXX
+    // If you don't want number fixed, it will just open WhatsApp.
+    const waLink = "https://wa.me/?text=" + waMessage;
+
+    btnWA.addEventListener("click", ()=>{
+      window.open(waLink, "_blank");
     });
 
-    btnTalk.addEventListener("click", (e)=>{
+    btnYes.addEventListener("click", (e)=>{
       sparkle(e.clientX, e.clientY);
-      typeText(textTalk, 15);
-      btnTalk.textContent = "Okay 🙂";
-      btnYes.style.display = "none";
+      typeText(yesText, 15);
+      setTimeout(showExtras, 900);
+    });
+
+    btnSimple.addEventListener("click", (e)=>{
+      sparkle(e.clientX, e.clientY);
+      typeText(simpleText, 15);
+      setTimeout(showExtras, 900);
+    });
+
+    btnTime.addEventListener("click", (e)=>{
+      sparkle(e.clientX, e.clientY);
+      typeText(timeText, 15);
+      setTimeout(showExtras, 900);
+    });
+
+    vibe1.addEventListener("click", ()=>{
+      vibeResult.style.display = "block";
+      vibeResult.textContent = "🙂 Perfect. I’ll keep it simple and respectful.";
+    });
+
+    vibe2.addEventListener("click", ()=>{
+      vibeResult.style.display = "block";
+      vibeResult.textContent = "🤝 Got it. Friendly and comfortable — without overdoing it.";
+    });
+
+    vibe3.addEventListener("click", ()=>{
+      vibeResult.style.display = "block";
+      vibeResult.textContent = "🤍 Understood. Distance, but full respect. I’ll follow that.";
     });
 
     document.addEventListener("click", (e)=>{
