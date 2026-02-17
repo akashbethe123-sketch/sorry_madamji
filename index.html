@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Me 😄✨</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #1b1b4d, #050515);
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .card {
+      text-align: center;
+      padding: 25px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 0 25px rgba(255,255,255,0.15);
+      width: 90%;
+      max-width: 420px;
+      backdrop-filter: blur(8px);
+      animation: pop 1s ease;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.5;
+      min-height: 90px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 12px;
+      background: #ff4d6d;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<div class="card">
+  <h1>🙈 Open karke delete mat karna 😄✨</h1>
+  <p id="msg"></p>
+  <button onclick="surprise()">Click karo 😌❤️</button>
+</div>
+
+<script>
+  // Typing effect
+  const text = "Sorry madam ji 🙏🙂\nMain bas wahi purani wali bonding wapas chahta hoon...\nSenior-junior wali, simple aur real 🥺❤️✨";
+  let i = 0;
+  function type() {
+    if (i < text.length) {
+      document.getElementById("msg").innerText += text.charAt(i);
+      i++;
+      setTimeout(type, 40);
+    }
+  }
+  type();
+
+  // Surprise button
+  function surprise() {
+    alert("😄❤️ Thank you... aap smile kar do bas!");
+  }
+
+  // Stars background
+  const canvas = document.getElementById("stars");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let stars = [];
+  for (let s = 0; s < 150; s++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 2,
+      d: Math.random() * 1
+    });
+  }
+
+  function drawStars() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = "white";
+    ctx.beginPath();
+    for (let s of stars) {
+      ctx.moveTo(s.x, s.y);
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2, true);
+    }
+    ctx.fill();
+
+    for (let s of stars) {
+      s.y += s.d;
+      if (s.y > canvas.height) {
+        s.y = 0;
+        s.x = Math.random() * canvas.width;
+      }
+    }
+    requestAnimationFrame(drawStars);
+  }
+  drawStars();
+</script>
+
+</body>
+</html>
