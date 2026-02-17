@@ -3,47 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chakravyuh Link 😄</title>
+  <title>A Small Request 🤍</title>
 
   <style>
     :root{
-      --bg1:#0b0f1a;
-      --bg2:#120b2b;
-      --card:rgba(255,255,255,0.06);
+      --bg1:#070A12;
+      --bg2:#0D1022;
+      --glass:rgba(255,255,255,0.06);
       --stroke:rgba(255,255,255,0.12);
-      --text:#f4f4ff;
-      --muted:rgba(244,244,255,0.75);
-      --btn:#ffffff;
-      --btnText:#0b0f1a;
+      --text:#F4F6FF;
+      --muted:rgba(244,246,255,0.72);
+      --accent:#ffffff;
+      --accentText:#0A0C14;
+      --soft:rgba(255,255,255,0.10);
     }
 
     *{box-sizing:border-box;}
     body{
       margin:0;
       min-height:100vh;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color:var(--text);
       background:
-        radial-gradient(1000px 600px at 20% 10%, rgba(255, 0, 120, 0.22), transparent 55%),
-        radial-gradient(900px 500px at 80% 20%, rgba(0, 255, 200, 0.18), transparent 60%),
-        radial-gradient(900px 700px at 50% 90%, rgba(120, 90, 255, 0.22), transparent 60%),
+        radial-gradient(900px 500px at 15% 20%, rgba(255, 120, 170, 0.20), transparent 60%),
+        radial-gradient(800px 520px at 85% 15%, rgba(120, 200, 255, 0.18), transparent 60%),
+        radial-gradient(900px 600px at 55% 95%, rgba(180, 130, 255, 0.16), transparent 60%),
         linear-gradient(135deg, var(--bg1), var(--bg2));
       overflow:hidden;
     }
 
-    /* floating particles */
-    .particle{
+    /* soft moving glow */
+    .glow{
       position:fixed;
-      width:10px; height:10px;
-      border-radius:50%;
-      opacity:0.35;
-      filter: blur(0.2px);
-      animation: floatUp linear infinite;
+      inset:-40%;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.07), transparent 45%),
+        radial-gradient(circle at 80% 40%, rgba(255,255,255,0.06), transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(255,255,255,0.05), transparent 55%);
+      filter: blur(20px);
+      animation: drift 10s ease-in-out infinite;
       pointer-events:none;
+      z-index:0;
     }
-    @keyframes floatUp{
-      from{ transform: translateY(120vh) translateX(0) scale(0.9); }
-      to{ transform: translateY(-20vh) translateX(80px) scale(1.2); }
+    @keyframes drift{
+      0%{ transform: translate(0,0) scale(1); }
+      50%{ transform: translate(2%, -2%) scale(1.03); }
+      100%{ transform: translate(0,0) scale(1); }
     }
 
     .wrap{
@@ -53,306 +58,263 @@
       justify-content:center;
       padding:22px;
       position:relative;
-      z-index:5;
+      z-index:2;
     }
 
     .card{
-      width:min(720px, 96vw);
-      background:var(--card);
+      width:min(820px, 96vw);
+      background:var(--glass);
       border:1px solid var(--stroke);
-      border-radius:22px;
-      padding:22px 18px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-      backdrop-filter: blur(10px);
+      border-radius:26px;
+      padding:22px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.45);
     }
 
-    .title{
-      font-size:22px;
-      font-weight:800;
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+
+    .chip{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.12);
+      font-size:13px;
+      color:rgba(255,255,255,0.80);
+    }
+
+    .dot{
+      width:10px; height:10px;
+      border-radius:50%;
+      background: rgba(255,255,255,0.75);
+      box-shadow: 0 0 18px rgba(255,255,255,0.25);
+    }
+
+    h1{
+      margin:6px 0 8px 0;
+      font-size:26px;
       letter-spacing:0.2px;
-      margin:0 0 8px 0;
+      line-height:1.2;
       text-align:center;
     }
 
-    .subtitle{
-      margin:0 0 14px 0;
+    p.sub{
+      margin:0 0 16px 0;
       text-align:center;
       color:var(--muted);
       font-size:14px;
+      line-height:1.6;
     }
 
     .screen{
-      background: rgba(0,0,0,0.25);
-      border:1px solid rgba(255,255,255,0.10);
-      border-radius:18px;
+      border-radius:22px;
       padding:18px;
-      min-height:220px;
+      border:1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.22);
+      min-height:260px;
       position:relative;
       overflow:hidden;
     }
 
-    .typing{
+    .msg{
       font-size:18px;
-      line-height:1.5;
-      margin:0;
+      line-height:1.7;
       white-space:pre-wrap;
+      margin:0;
     }
 
-    .cursor{
-      display:inline-block;
-      width:10px;
-      height:18px;
-      background:rgba(255,255,255,0.7);
-      margin-left:6px;
-      border-radius:3px;
-      animation: blink 0.8s infinite;
-      vertical-align:middle;
+    .fadeIn{
+      animation: fadeIn 0.55s ease forwards;
     }
-    @keyframes blink{ 0%,49%{opacity:1;} 50%,100%{opacity:0;} }
+    @keyframes fadeIn{
+      from{ opacity:0; transform: translateY(10px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
 
     .btnRow{
       display:flex;
       gap:12px;
-      flex-wrap:wrap;
       justify-content:center;
+      flex-wrap:wrap;
       margin-top:16px;
     }
 
     button{
       border:none;
-      border-radius:16px;
+      border-radius:18px;
       padding:12px 16px;
+      font-size:15px;
       font-weight:800;
       cursor:pointer;
       transition: transform 0.15s ease, opacity 0.15s ease;
-      font-size:15px;
     }
     button:hover{ transform: translateY(-2px); }
-    button:active{ transform: translateY(1px) scale(0.98); }
+    button:active{ transform: translateY(1px) scale(0.99); }
 
-    .yes{
-      background: var(--btn);
-      color: var(--btnText);
-      box-shadow: 0 10px 30px rgba(255,255,255,0.12);
+    .primary{
+      background: var(--accent);
+      color: var(--accentText);
+      box-shadow: 0 16px 40px rgba(255,255,255,0.10);
     }
-
-    .no{
-      background: rgba(255,255,255,0.10);
+    .secondary{
+      background: rgba(255,255,255,0.08);
       color: var(--text);
-      border:1px solid rgba(255,255,255,0.18);
-      position:relative;
-    }
-
-    .badge{
-      display:inline-block;
-      font-size:12px;
-      padding:6px 10px;
-      border-radius:999px;
       border:1px solid rgba(255,255,255,0.14);
-      color:rgba(255,255,255,0.85);
-      margin:0 auto 12px auto;
-      text-align:center;
-      width:fit-content;
-      background: rgba(255,255,255,0.06);
     }
 
     .footer{
-      text-align:center;
       margin-top:14px;
-      color:rgba(255,255,255,0.55);
+      text-align:center;
       font-size:12px;
+      color:rgba(255,255,255,0.55);
     }
 
-    /* confetti */
-    .confetti{
+    /* small sparkle */
+    .sparkle{
       position:fixed;
-      width:10px;
-      height:14px;
-      top:-20px;
-      border-radius:3px;
-      opacity:0.9;
-      animation: fall linear forwards;
+      font-size:16px;
+      opacity:0;
+      animation: pop 1.1s ease forwards;
       pointer-events:none;
       z-index:10;
     }
-    @keyframes fall{
-      to{
-        transform: translateY(120vh) rotate(720deg);
-        opacity: 0.95;
-      }
-    }
-
-    /* little heart pop */
-    .pop{
-      position:fixed;
-      font-size:18px;
-      animation: pop 1.2s ease forwards;
-      pointer-events:none;
-      z-index:12;
-    }
     @keyframes pop{
       0%{ transform: translateY(0) scale(0.7); opacity:0; }
-      25%{ opacity:1; }
-      100%{ transform: translateY(-120px) scale(1.3); opacity:0; }
+      20%{ opacity:1; }
+      100%{ transform: translateY(-80px) scale(1.2); opacity:0; }
     }
   </style>
 </head>
 
 <body>
+  <div class="glow"></div>
 
   <div class="wrap">
     <div class="card">
-      <div class="badge">⚡ Welcome to Chakravyuh Mode 😄</div>
-      <h1 class="title">Choose wisely madam ji 😌✨</h1>
-      <p class="subtitle">Do options hain… par dono me fun guaranteed 😭❤️</p>
+      <div class="top">
+        <div class="chip"><span class="dot"></span> A small, honest request</div>
+        <div class="chip">🤍 Respect > Ego</div>
+      </div>
+
+      <h1>Madam ji… can I say something? 😅</h1>
+      <p class="sub">
+        This is not drama. Not pressure. Just a clean and respectful message.
+      </p>
 
       <div class="screen">
-        <p id="typing" class="typing"></p><span class="cursor"></span>
+        <p id="msg" class="msg fadeIn"></p>
 
-        <div class="btnRow" id="buttons" style="display:none;">
-          <button class="yes" id="btnYes">Option 1: Haan 😌❤️</button>
-          <button class="no" id="btnNo">Option 2: Nahi 😭</button>
+        <div class="btnRow" id="btnRow" style="display:none;">
+          <button class="primary" id="btnYes">Yes, we can 🤍</button>
+          <button class="secondary" id="btnTalk">Let’s keep it simple 🙂</button>
         </div>
       </div>
 
-      <div class="footer">Made with 😄 + 🤍 by Akash</div>
+      <div class="footer">— made with sincerity ✨</div>
     </div>
   </div>
 
   <script>
-    // ======= Floating particles background =======
-    function spawnParticles(){
-      for(let i=0;i<18;i++){
-        const p=document.createElement("div");
-        p.className="particle";
-        const size= 6 + Math.random()*14;
-        p.style.width=size+"px";
-        p.style.height=size+"px";
-        p.style.left=(Math.random()*100)+"vw";
-        p.style.animationDuration=(7+Math.random()*10)+"s";
-        p.style.animationDelay=(Math.random()*3)+"s";
-        p.style.background = `rgba(${Math.floor(120+Math.random()*135)}, ${Math.floor(90+Math.random()*165)}, ${Math.floor(150+Math.random()*105)}, 0.45)`;
-        document.body.appendChild(p);
-      }
-    }
-    spawnParticles();
+    const msg = document.getElementById("msg");
+    const btnRow = document.getElementById("btnRow");
+    const btnYes = document.getElementById("btnYes");
+    const btnTalk = document.getElementById("btnTalk");
 
-    // ======= Typing animation =======
-    const typingEl = document.getElementById("typing");
-    const buttons = document.getElementById("buttons");
+    const text1 =
+`Sorry madam ji… 🤍
 
-    const scenes = [
-      "Madam ji… 😅\n\nMain bas ek chhoti si request leke aaya hoon…\n\n✨ Kya hum phir se wahi purani wali senior-junior bonding rakhen?\n\n(Yes = cute ending)\n(No = chakravyuh start 😭)",
-      "Awww 😭❤️\n\nAapne YES dabaya…\n\nMain sach me wahi simple aur real bonding chahta hoon.\n\nNo drama… bas respect + care + thoda sa pyaar 😌✨",
-      "Ohh… NO? 😭\n\nTheek hai…\n\nPar ab aap Chakravyuh me enter kar chuki ho 😈⚡\n\nAage 2 aur options aayenge…"
-    ];
+Main bas ek simple si baat bolna chahta hoon:
 
-    let current = 0;
+Main aapko respect karta hoon.
+Aur mujhe wahi purani wali bonding wapas chahiye —
+senior-junior wali… simple, real, aur peaceful 🙂
 
-    function typeText(text, speed=22){
-      typingEl.textContent = "";
-      buttons.style.display = "none";
+Main aapko disturb nahi karna chahta,
+bas aapke saath achche se behave karna chahta hoon.
+
+Agar aap allow kar do… toh main khush rahunga.`;
+
+    const textYes =
+`Thank you… 🤍
+
+Aapne “Yes” choose kiya,
+aur honestly… ye mere liye kaafi hai.
+
+Main aapko kabhi force nahi karunga.
+Bas respect, care, aur wahi purani bonding.
+
+🙂✨
+(Ab aap is link ko close kar sakti ho.)`;
+
+    const textTalk =
+`Bilkul… 🙂🤍
+
+Aapne “simple” choose kiya,
+aur mujhe wahi chahiye tha.
+
+Main bas ek achcha senior banna chahta hoon,
+jo aapko comfortable feel karaye.
+
+Aap jab chahe… normal baat kar lena.
+No pressure.`;
+
+    function typeText(text, speed=18){
+      msg.textContent = "";
+      btnRow.style.display = "none";
       let i=0;
+
       const timer = setInterval(()=>{
-        typingEl.textContent += text[i];
+        msg.textContent += text[i];
         i++;
-        if(i>=text.length){
+        if(i >= text.length){
           clearInterval(timer);
-          setTimeout(()=> buttons.style.display = "flex", 350);
+          setTimeout(()=> btnRow.style.display = "flex", 350);
         }
       }, speed);
     }
 
-    typeText(scenes[0]);
+    // start
+    typeText(text1, 16);
 
-    // ======= Confetti + Heart Pop =======
-    function confettiBlast(){
-      for(let i=0;i<45;i++){
-        const c=document.createElement("div");
-        c.className="confetti";
-        c.style.left=(Math.random()*100)+"vw";
-        c.style.animationDuration=(1.8+Math.random()*1.6)+"s";
-        c.style.transform=`rotate(${Math.random()*360}deg)`;
-        c.style.background = `hsl(${Math.floor(Math.random()*360)}, 90%, 70%)`;
-        document.body.appendChild(c);
-        setTimeout(()=>c.remove(), 3500);
-      }
+    function sparkle(x,y){
+      const icons = ["✨","🤍","💫","🙂","🌙"];
+      const s = document.createElement("div");
+      s.className="sparkle";
+      s.textContent = icons[Math.floor(Math.random()*icons.length)];
+      s.style.left = x + "px";
+      s.style.top  = y + "px";
+      document.body.appendChild(s);
+      setTimeout(()=>s.remove(), 1100);
     }
-
-    function heartPop(x,y){
-      const hearts = ["❤️","💖","✨","🥺","😄","🤍","💫"];
-      const h=document.createElement("div");
-      h.className="pop";
-      h.textContent = hearts[Math.floor(Math.random()*hearts.length)];
-      h.style.left = x+"px";
-      h.style.top = y+"px";
-      document.body.appendChild(h);
-      setTimeout(()=>h.remove(), 1200);
-    }
-
-    // ======= Buttons logic =======
-    const btnYes = document.getElementById("btnYes");
-    const btnNo  = document.getElementById("btnNo");
-
-    let noMoves = 0;
 
     btnYes.addEventListener("click", (e)=>{
-      heartPop(e.clientX, e.clientY);
-      confettiBlast();
-      current = 1;
-      typeText(scenes[1], 18);
-
-      // After yes, turn into final message
-      setTimeout(()=>{
-        btnYes.textContent = "Final: Send this link 😌❤️";
-        btnNo.style.display="none";
-      }, 1200);
+      sparkle(e.clientX, e.clientY);
+      typeText(textYes, 15);
+      btnYes.textContent = "Thank you 🤍";
+      btnTalk.style.display = "none";
     });
 
-    btnNo.addEventListener("mouseover", ()=>{
-      // make No button dodge
-      noMoves++;
-      if(noMoves <= 8){
-        const x = (Math.random()*220) - 110;
-        const y = (Math.random()*90) - 45;
-        btnNo.style.transform = `translate(${x}px, ${y}px)`;
-      }
+    btnTalk.addEventListener("click", (e)=>{
+      sparkle(e.clientX, e.clientY);
+      typeText(textTalk, 15);
+      btnTalk.textContent = "Okay 🙂";
+      btnYes.style.display = "none";
     });
 
-    btnNo.addEventListener("click", (e)=>{
-      heartPop(e.clientX, e.clientY);
-      current = 2;
-      typeText(scenes[2], 20);
-
-      // After NO, convert into 2 new options (chakravyuh)
-      setTimeout(()=>{
-        btnYes.textContent = "Option A: Ek chance 😌";
-        btnNo.textContent  = "Option B: Direct ignore 😭";
-        btnNo.style.transform = "translate(0,0)";
-        btnNo.style.display="inline-block";
-      }, 1200);
-    });
-
-    // Chakravyuh second stage
-    btnYes.addEventListener("dblclick", ()=>{
-      confettiBlast();
-      typingEl.textContent =
-        "🔥 Chakravyuh ka secret unlock!\n\n" +
-        "Madam ji… aapne double tap kiya 😭❤️\n\n" +
-        "Final answer:\n" +
-        "Main bas aapko respect karta hoon…\n" +
-        "Aur wahi bonding wapas chahta hoon 😌✨\n\n" +
-        "🤍 Thank you for reading.";
-      buttons.style.display="none";
-    });
-
-    // click anywhere = heart pop
-    document.addEventListener("click",(e)=>{
+    document.addEventListener("click", (e)=>{
       if(e.target.tagName !== "BUTTON"){
-        heartPop(e.clientX, e.clientY);
+        sparkle(e.clientX, e.clientY);
       }
     });
   </script>
-
 </body>
 </html>
